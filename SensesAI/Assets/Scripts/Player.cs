@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     private GameManager gameManager;
     public int codesFound;
+    public bool isRunning;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
         rotateSpeed = 180.0f;
         interactDistance = 10.0f;
         codesFound = 0;
+        isRunning = false;
         playerRigidbody = GetComponent<Rigidbody>();
         playerRigidbody.freezeRotation = true;
         playerModel = gameObject.transform.Find("PlayerModel").gameObject;
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = runSpeed;
+            isRunning = true;
 
             if (!playerAudio.isPlaying)
             {
@@ -60,6 +63,8 @@ public class Player : MonoBehaviour
         else
         {
             moveSpeed = walkSpeed;
+            isRunning = false;
+
             if (playerAudio.isPlaying)
             {
                 playerAudio.Stop();

@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         SetCodesUI(0);
         enemySight.text = "ACTIVE";
-        enemyHearing.text = "ACTIVE";
+        enemyHearing.text = "Disabled";
     }
 
     // Update is called once per frame
@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
             return true;
         }
 
-        endText.enabled = false;
         return false;
     }
 
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour
         {
             enemy.canSee = false;
             enemy.canHear = true;
-            enemySight.text = "DISABLED";
+            enemySight.text = "Disabled";
             enemyHearing.text = "ACTIVE";
         }
     }
@@ -129,7 +128,7 @@ public class GameManager : MonoBehaviour
             enemy.canHear = false;
             enemy.canSee = true;
             enemySight.text = "ACTIVE";
-            enemyHearing.text = "DISABLED";
+            enemyHearing.text = "Disabled";
         }
     }
 }

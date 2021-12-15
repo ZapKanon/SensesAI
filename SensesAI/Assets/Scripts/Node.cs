@@ -14,9 +14,10 @@ public abstract class Node : MonoBehaviour
 {
     public NodeState currentState;
 
+
     public Node() 
-    { 
-    
+    {
+
     }
 
     public abstract NodeState Evaluate();

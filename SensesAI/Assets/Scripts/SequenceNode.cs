@@ -8,6 +8,11 @@ public class SequenceNode : Node
     //List of this selquence node's children
     protected List<Node> childNodes = new List<Node>();
 
+    public SequenceNode(List<Node> childNodes)
+    {
+        this.childNodes = childNodes;
+    }
+
     public override NodeState Evaluate()
     {
         bool childNodeRunning = false;

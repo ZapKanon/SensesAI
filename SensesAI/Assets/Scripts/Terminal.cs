@@ -17,7 +17,7 @@ public class Terminal : MonoBehaviour
     GameObject spotLight;
 
     //The area within which enemies can see the light of the terminal
-    BoxCollider sightZone;
+    public BoxCollider sightZone;
 
     //How long the lights stay on after the terminal is accessed
     private float lightTimeMax = 10.0f;
