@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5658464879798697943}
   - component: {fileID: 5578573043924066954}
+  - component: {fileID: 8270648681882968354}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -342,6 +343,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &8270648681882968354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658464879798697942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85782a93cbc75054d8156f2a7429a32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSee: 1
+  canHear: 1
+  nearDistance: 10
+  atDistance: 2
+  player: {fileID: 0}
+  gameManager: {fileID: 0}
+  memorizedPosition: {x: 0, y: 0, z: 0}
+  memorizedObjectTimer: 0
+  memorizedObjectLimit: 0
+  hearingRange: 0
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  currentPatrolPoint: 0
+  patrolling: 0
+  radius: 0
+  angle: 0
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  targetInView: 0
 --- !u!1 &7883285229096523204
 GameObject:
   m_ObjectHideFlags: 0

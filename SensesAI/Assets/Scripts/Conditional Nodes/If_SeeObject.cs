@@ -11,8 +11,15 @@ public class If_SeeObject : LeafNode
 
     public override NodeState Evaluate()
     {
-        //TODO: View cone see player stuff
+        //See player if in view cone
+        if (agent.targetInView)
+        {
+            agent.memorizedPosition = target.transform.position;
+            agent.memorizedObjectTimer = 0f;
+            return NodeState.Success;
+        }
 
+        //See lit up terminals
         foreach(Terminal terminal in gameManager.terminals)
         {
             if (terminal.lit)

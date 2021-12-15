@@ -25,6 +25,13 @@ public class Enemy : MonoBehaviour
     public int currentPatrolPoint;
     public bool patrolling;
 
+    public float radius;
+    public float angle;
+
+    public LayerMask playerMask;
+    public LayerMask obstructionMask;
+    public bool targetInView;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,9 +46,12 @@ public class Enemy : MonoBehaviour
         nearDistance = 12.0f;
         atDistance = 6.0f;
         //GetComponent<NavMeshAgent>().speed = 40.0f;
-        memorizedObjectLimit = 10.0f;
+        memorizedObjectLimit = 7.5f;
         hearingRange = 120.0f;
         currentPatrolPoint = 0;
+
+        radius = 45.0f;
+        angle = 100.0f;
     }
 
     // Update is called once per frame
@@ -69,8 +79,10 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            GetComponent<NavMeshAgent>().speed = 34.0f;
+            GetComponent<NavMeshAgent>().speed = 30.0f;
         }
+
+        FieldOfViewCheck(playerMask, "Player");
     }
 
     //Create and organize all nodes present in this enemy's behavior tree
@@ -119,15 +131,16 @@ public class Enemy : MonoBehaviour
         SequenceNode hearingCheckSequence = new SequenceNode(new List<Node>() { if_CanHear, hearingSelector });
 
         //Sense-related selector node
-        SelectorNode sensesSelector = new SelectorNode(new List<Node>() { sightCheckSequence, hearingCheckSequence });
+        SelectorNode sensesSelector = new SelectorNode(new List<Node>() { killPlayerSequence, chasePlayerSequence, sightCheckSequence, hearingCheckSequence });
 
         //Patrol power!
         Patrol patrol = new Patrol(this, player, gameManager);
 
         //Finally, the root node that governs the entire tree
-        rootNode = new SelectorNode(new List<Node>() { killPlayerSequence, chasePlayerSequence, sensesSelector, patrol});
+        rootNode = new SelectorNode(new List<Node>() {sensesSelector, patrol});
     }
 
+    //Upon reaching a patrol point location, update the current patrol point to the next one in the list
     public void UpdatePatrolPoint()
     {
         if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) <= GetComponent<NavMeshAgent>().stoppingDistance)
@@ -138,6 +151,59 @@ public class Enemy : MonoBehaviour
             {
                 currentPatrolPoint = 0;
             }
+        }
+    }
+
+    //Detect objects within the view cone
+    private void FieldOfViewCheck(LayerMask targetMask, string targetType)
+    {
+        //Create a sphere around the character that checks for objects on a certain layer
+        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
+
+        //If at least one target object is detected
+        if (rangeChecks.Length != 0)
+        {
+            for (int i = 0; i < rangeChecks.Length; i++)
+            {
+                //Do not detect self
+                if (rangeChecks[i].gameObject != gameObject)
+                {
+                    Transform target = rangeChecks[i].transform;
+
+                    //Determine the direction vector from self to target
+                    Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+                    //Check if the target is within a certain angle in front of the character
+                    //This results in a view cone where targets can be perceived
+                    if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
+                    {
+                        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+                        //Once a target is confirmed to be within the view cone, perform a raycast
+                        //If the raycast returns false, there aren't any walls blocking view of the target
+                        //If there ARE walls in the way, the character ignores the target since thay can't "see" them
+                        if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
+                        {
+                            //Confirm that target is visible
+                            targetInView = true;
+
+                        }
+                        else
+                        {
+                            targetInView = false;
+                        }
+                    }
+                    else
+                    {
+                        targetInView = false;
+                    }
+                }
+            }
+        }
+        //Target was in view, but isn't anymore
+        else if (targetInView)
+        {
+            targetInView = false;
         }
     }
 }
