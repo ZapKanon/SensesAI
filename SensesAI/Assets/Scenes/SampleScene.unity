@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 2
+    agentRadius: 3
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.6666667
+    cellSize: 1
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -1292,6 +1292,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278252259}
   m_CullTransparentMesh: 1
+--- !u!114 &294866239 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -896972305636764070, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+  m_PrefabInstance: {fileID: 852212523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a41bac3defd5348b185a8523049154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &299335894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2968,6 +2979,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844904830}
   m_CullTransparentMesh: 1
+--- !u!1001 &852212523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -896972305636764070, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: raiseSpeed
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 161.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870112, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880323976597870115, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
+      propertyPath: m_Name
+      value: Gate (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c52bb57ed953324f8e26958b7f5bd09, type: 3}
 --- !u!4 &862334530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5243182161611658592, guid: 635f7cfa17d01c34b9de2789fc2a3400, type: 3}
@@ -3561,6 +3633,7 @@ MonoBehaviour:
   - {fileID: 244889235}
   - {fileID: 23527293}
   currentPatrolPoint: 0
+  patrolling: 0
 --- !u!1001 &1138449779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3664,7 +3737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 625.2, y: 1043}
+  m_AnchoredPosition: {x: 625.2, y: 1105.5}
   m_SizeDelta: {x: 330, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1192985592
@@ -3689,11 +3762,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Disable Sight      Disable Hearing
 
-    (E)                        (R)
-
-
-    Robots
-    operate on Sight and Sound.'
+    (E)                        (R)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5582,6 +5651,7 @@ MonoBehaviour:
   - {fileID: 7279350627926828254}
   gates:
   - {fileID: 452275943}
+  - {fileID: 294866239}
   enemies:
   - {fileID: 1125010159}
   player: {fileID: 1605141144873406532}
@@ -5837,8 +5907,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2076938530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 500, y: 1, z: 500}
+  m_LocalPosition: {x: 250, y: -0.5, z: 250}
+  m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -5923,12 +5993,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5578573043924066954, guid: 62abbd29d71ac674fb5e15c44c31769a, type: 3}
-      propertyPath: m_Speed
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5578573043924066954, guid: 62abbd29d71ac674fb5e15c44c31769a, type: 3}
-      propertyPath: m_Acceleration
-      value: 1000
+      propertyPath: m_StoppingDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5658464879710130485, guid: 62abbd29d71ac674fb5e15c44c31769a, type: 3}
       propertyPath: m_LocalPosition.x
