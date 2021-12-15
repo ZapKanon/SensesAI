@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Enemies are robots that patrol the facility.
-//They use sight and hearing to patrol and search for the player.
-public class Enemy : MonoBehaviour
+public class EndElevator : MonoBehaviour
 {
-    public bool canSee = true;
-    public bool canHear = true;
-
     // Start is called before the first frame update
     void Start()
     {

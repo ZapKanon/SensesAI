@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public List<Gate> gates;
     [SerializeField] public List<Enemy> enemies;
     [SerializeField] public Player player;
+    [SerializeField] public EndElevator endElevator;
 
+    [SerializeField] public TMP_Text endText;
     [SerializeField] public TMP_Text codesCount;
     [SerializeField] public TMP_Text enemySight;
     [SerializeField] public TMP_Text enemyHearing;
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetCodesUI(0);
+        enemySight.text = "ACTIVE";
+        enemyHearing.text = "ACTIVE";
     }
 
     // Update is called once per frame
@@ -46,7 +50,7 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    //Determine if any terminals are within interaction range of the player
+    //Determine if any gates are within interaction range of the player
     public Gate PlayerInteractableGate()
     {
         foreach (Gate gate in gates)
@@ -62,9 +66,70 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    //Determine if any gates are within interaction range of the player
+    public bool PlayerInteractableElevator()
+    {
+        if (Vector3.Distance(player.transform.position, endElevator.transform.position) < player.interactDistance)
+        {
+            endText.enabled = true;
+            return true;
+        }
+
+        endText.enabled = false;
+        return false;
+    }
+
     //Player's code count goes up by 1
     public void SetCodesUI(int codesFound)
     {
         codesCount.text = codesFound + "/" + terminals.Count;
+    }
+
+    //Check if the game should end based on how many codes the player has found
+    public void SetEndUI(int codesFound)
+    {
+        //If the player has found every code, "end the game" by stopping time.
+        if (codesFound >= terminals.Count)
+        {
+            endText.text = "Codes received.\nMission Complete!";
+            Time.timeScale = 0;
+        }
+        //Otherwise, tell the player they don't have all the codes
+        else
+        {
+            endText.text = "Missing Codes!";
+        }
+    }
+
+    //End the game because the player has been caught
+    public void SetEndUI()
+    {
+        endText.enabled = true;
+        endText.text = "Caught by Robots.\nMission Failed.";
+        Time.timeScale = 0;
+    }
+
+    //Disable sight sense of all enemies
+    public void DisableSight()
+    {
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.canSee = false;
+            enemy.canHear = true;
+            enemySight.text = "DISABLED";
+            enemyHearing.text = "ACTIVE";
+        }
+    }
+
+    //Disable hearing sense for all enemies
+    public void DisableHearing()
+    {
+        foreach(Enemy enemy in enemies)
+        {
+            enemy.canHear = false;
+            enemy.canSee = true;
+            enemySight.text = "ACTIVE";
+            enemyHearing.text = "DISABLED";
+        }
     }
 }

@@ -15,16 +15,18 @@ public class Gate : MonoBehaviour
     //Location at which the gate is fully raised
     Vector3 raisedPosition;
 
-    public float raiseSpeed = 1f;
+    float raiseSpeed = 0.65f;
     
     //The part of the gate that actually rises
     GameObject actualGate;
+    AudioSource gateAudio;
 
     // Start is called before the first frame update
     void Start()
     {
         actualGate = gameObject.transform.Find("ActualGate").gameObject;
         raisedPosition = new Vector3(actualGate.transform.position.x, actualGate.transform.position.y + 6, actualGate.transform.position.z);
+        gateAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,6 +53,7 @@ public class Gate : MonoBehaviour
         if (!raised && !rising)
         {
             rising = true;
+            gateAudio.Play();
             return true;
         }
 

@@ -16,6 +16,9 @@ public class Terminal : MonoBehaviour
     GameObject pointLight;
     GameObject spotLight;
 
+    //The area within which enemies can see the light of the terminal
+    BoxCollider sightZone;
+
     //How long the lights stay on after the terminal is accessed
     private float lightTimeMax = 10.0f;
     private float lightTimer = 0.0f;
@@ -25,6 +28,7 @@ public class Terminal : MonoBehaviour
     {
         pointLight = gameObject.transform.Find("TerminalPointLight").gameObject;
         spotLight = gameObject.transform.Find("TerminalSpotLight").gameObject;
+        sightZone = gameObject.transform.Find("SightZone").gameObject.GetComponent<BoxCollider>();
         pointLight.GetComponent<Light>().enabled = false;
         spotLight.GetComponent<Light>().enabled = false;
     }

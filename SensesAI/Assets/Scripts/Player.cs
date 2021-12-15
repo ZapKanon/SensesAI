@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float interactDistance;
     private Rigidbody playerRigidbody;
     private GameObject playerModel;
+    private AudioSource playerAudio;
 
     private GameManager gameManager;
     public int codesFound;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
         playerRigidbody.freezeRotation = true;
         playerModel = gameObject.transform.Find("PlayerModel").gameObject;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Check to move player every frame
@@ -44,34 +46,48 @@ public class Player : MonoBehaviour
         Vector3 positionChange = new Vector3(0.0f, 0.0f, 0.0f);
         bool rotationChange = false;
         float moveSpeed;
-
+        
+        //Run
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = runSpeed;
+
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.Play();
+            }
         }
         else
         {
             moveSpeed = walkSpeed;
+            if (playerAudio.isPlaying)
+            {
+                playerAudio.Stop();
+            }
         }
 
+        //Move forward
         if (Input.GetKey(KeyCode.W))
         {
             positionChange += Vector3.forward;
             rotationChange = true;
         }
 
+        //Move left
         if (Input.GetKey(KeyCode.A))
         {
             positionChange += Vector3.left;
             rotationChange = true;
         }
 
+        //Move backward
         if (Input.GetKey(KeyCode.S))
         {
             positionChange += Vector3.back;
             rotationChange = true;
         }
 
+        //Move right
         if (Input.GetKey(KeyCode.D))
         {
             positionChange += Vector3.right;
@@ -90,7 +106,8 @@ public class Player : MonoBehaviour
     {
         Terminal nearbyTerminal = gameManager.PlayerInteractableTerminal();
         Gate nearbyGate = gameManager.PlayerInteractableGate();
-        
+
+        //If near a terminal
         if (nearbyTerminal != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -102,6 +119,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        //If near a gate
         else if (nearbyGate != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -111,6 +129,22 @@ public class Player : MonoBehaviour
 
                 }
             }
+        }
+
+        //If near the end elevator
+        if (gameManager.PlayerInteractableElevator())
+        {
+            gameManager.SetEndUI(codesFound);
+        }
+
+        //Disable enemy vision
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            gameManager.DisableSight();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            gameManager.DisableHearing();
         }
     }
 }
