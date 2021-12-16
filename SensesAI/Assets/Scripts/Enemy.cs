@@ -43,11 +43,11 @@ public class Enemy : MonoBehaviour
         canHear = false;
         patrolling = false;
 
-        nearDistance = 12.0f;
+        nearDistance = 10.0f;
         atDistance = 6.0f;
         //GetComponent<NavMeshAgent>().speed = 40.0f;
         memorizedObjectLimit = 7.5f;
-        hearingRange = 120.0f;
+        hearingRange = 80.0f;
         currentPatrolPoint = 0;
 
         radius = 45.0f;
@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            GetComponent<NavMeshAgent>().speed = 30.0f;
+            GetComponent<NavMeshAgent>().speed = 25.0f;
         }
 
         FieldOfViewCheck(playerMask, "Player");
